@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import shareVideo from "../assets/share.mp4";
 import logo from "../assets/logo.png";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
@@ -7,6 +7,7 @@ import { client } from "../client";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [isLoggedIn, loggedIn]=useState(false);
   const navigate = useNavigate();
   const responseGoogle = (response) => {
     const userObject = jwtDecode(response.credential);
@@ -24,7 +25,11 @@ const Login = () => {
       navigate('/', {replace:true})
     });
   };
-  return (
+  useEffect(() => {
+    if(localStorage.getItem('user')) loggedIn(true);
+  }, [])
+  
+  return isLoggedIn?navigate('/', {replace:true}):(
     <div className="flex justify-start items-center flex-col h-screen">
       <div className="relative w-full h-full">
         <video
