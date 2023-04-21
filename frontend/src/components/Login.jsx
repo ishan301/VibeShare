@@ -63,7 +63,7 @@ const Login = () => {
                 cookiePolicy="single_host_origin"
               />
             </GoogleOAuthProvider>
-            ;
+            
           </div>
         </div>
       </div>
